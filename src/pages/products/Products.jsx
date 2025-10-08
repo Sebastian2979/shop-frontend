@@ -41,7 +41,7 @@ const Products = () => {
                     {products.map((product) => (
                         <li key={product.id} className="sm:flex items-center justify-between bg-gray-700 p-4">
                             <div className="sm:flex sm:items-center sm:gap-4">
-                                <img src={`${import.meta.env.VITE_API_BASE_URL.replace(/\/api\/?$/, '')}/${product.image}`} alt={product.name} className="sm:w-32 sm:h-32 object-cover sm:mb-0 mb-4" />
+                                <img src={`${import.meta.env.VITE_API_BASE_URL.replace(/\/api\/?$/, '')}/storage/${product.image}`} alt={product.name} className="sm:w-32 sm:h-32 object-cover sm:mb-0 mb-4" />
                                 <div className="flex flex-col gap-2 text-teal-300">
                                     <h2 className="font-semibold">{product.name}</h2>
                                     <p className="max-w-lg">{product.description}</p>
