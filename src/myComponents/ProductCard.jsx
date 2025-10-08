@@ -19,7 +19,7 @@ const ProductCard = (props) => {
             <Card>
                 <CardHeader>
                     <Link to={`/products/${props.product.id}`} className="w-full h-full z-10">
-                        <img src={`${import.meta.env.VITE_API_BASE_URL.replace(/\/api\/?$/, '')}/${props.product.image}`} alt={props.product.name} className="w-full h-[300px] rounded-t-xl" />
+                        <img src={`${import.meta.env.VITE_API_BASE_URL.replace(/\/api\/?$/, '')}/storage/${props.product.image}`} alt={props.product.name} className="w-full h-[300px] rounded-t-xl" />
                     </Link>
                 </CardHeader>
                 <CardContent>
