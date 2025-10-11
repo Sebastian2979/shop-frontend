@@ -23,8 +23,8 @@ const EditProductForm = () => {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const [image, setImage] = useState(null)     // zeigt bestehendes ODER neu gewähltes Bild
-  const [newImage, setNewImage] = useState(null) // echtes File für Upload
+  const [image, setImage] = useState(null)     
+  const [newImage, setNewImage] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -85,16 +85,8 @@ const EditProductForm = () => {
     // WICHTIG: POST + Method Spoofing
     fd.append("_method", "PATCH");
 
-    // (Optional) Debug: Inhalt anzeigen
-    // for (const [k, v] of fd.entries()) console.log(k, v instanceof File ? v.name : v);
-
     try {
-      await api.post(`/products/${id}`, fd, {
-        headers: {
-          Accept: "application/json", // 422-Fehler sauber als JSON
-          // Authorization kommt i.d.R. aus Axios-Interceptor
-        },
-      });
+      await api.post(`/products/${id}`, fd);
       navigate("/admin/products");
     } catch (err) {
       console.error(err);

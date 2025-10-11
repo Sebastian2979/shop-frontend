@@ -9,8 +9,7 @@ const ProductPage = () => {
   const { id } = useParams()
 
   useEffect(() => {
-    api.get(`/products/${id}`, {
-    })
+    api.get(`/products/${id}`)
       .then((res) => setProduct(res.data.data || res.data))
       .catch((err) => console.error('Fehler beim Laden des Produktes:', err))
   }, [])

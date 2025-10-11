@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { addItem } from '../cartSlice';
+import { addItem, removeItem } from '../cartSlice';
 import { useDispatch } from 'react-redux';
+import { SquarePlus, SquareMinus } from 'lucide-react';
 import {
     Card,
     CardContent,
@@ -28,7 +29,11 @@ const ProductCard = (props) => {
                     <div className='text-xl mt-2 mb-4'>{props.product.price} €</div>
                 </CardContent>
                 <CardFooter>
-                    <button className="bg-teal-500 text-white py-2 px-4 w-full cursor-pointer rounded hover:bg-teal-600" onClick={() => dispatch(addItem(props.product))}>zum Warenkorb</button>
+                    <div className="flex w-full justify-end">
+                        {/* <button className="bg-teal-500 text-white py-2 px-4 cursor-pointer rounded hover:bg-teal-600" onClick={() => dispatch(addItem(props.product))}>zum Warenkorb</button> */}
+                        <button className="text-gray-800 hover:text-gray-900" onClick={() => dispatch(addItem(props.product))}><SquarePlus size={40}/></button>
+                        <button className="text-gray-800 hover:text-gray-900" onClick={() => dispatch(removeItem(props.product.id))}><SquareMinus size={40}/></button>
+                    </div>
                 </CardFooter>
             </Card>
         </div>
