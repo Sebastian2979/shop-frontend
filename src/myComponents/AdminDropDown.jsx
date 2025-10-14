@@ -33,10 +33,10 @@ const AdminDropDown = () => {
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink
-                href="/admin/orders"
+                href="/admin/category"
                 className="text-white hover:text-white/70 font-semibold"
               >
-                Kunden
+                Kategorien
               </NavigationMenuLink>
             </NavigationMenuItem>
 

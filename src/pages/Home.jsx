@@ -1,7 +1,10 @@
+import CategoryTabs from '@/myComponents/CategoryTabs'
 import ProductList from '@/myComponents/ProductList'
-import React from 'react'
+import { React, useState } from 'react'
 
 const Home = () => {
+
+  const [categorieId, setCategorieId] = useState();
 
   return (
     <>
@@ -15,8 +18,11 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className='flex justify-center bg-gray-800 p-8'>
-        <ProductList />
+      <div className='flex flex-col justify-center bg-gray-800 p-8'>
+        <div className="sm:w-6xl sm:mx-auto">
+          <CategoryTabs value={categorieId} onChange={setCategorieId} />
+          <ProductList categoryId={categorieId} />
+        </div>
       </div>
     </>
   )

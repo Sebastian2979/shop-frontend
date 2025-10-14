@@ -16,6 +16,7 @@ import Cart from "./pages/Cart";
 import ProductPage from "./pages/products/ProductPage";
 import StripeSuccessPage from "./pages/StripeSuccessPage";
 import OrderPage from "./pages/orders/OrderPage";
+import CategoryPage from "./pages/CategoryPage";
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
             <Route path=":id" element={<EditProductForm />} />
           </Route>
           <Route path="orders" element={<OrderPage />} />
+          <Route path="category" element={<CategoryPage />} />
         </Route>
 
         <Route path="notAllowed" element={<NotAllowed />} />

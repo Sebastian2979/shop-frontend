@@ -5,11 +5,13 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import React, { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import CategorySelect from './CategorySelect'
 
 const NewProductForm = () => {
   const navigate = useNavigate()
   const [imagePreview, setImagePreview] = useState(null)
   const [imageFile, setImageFile] = useState(null)
+  const [categoryId, setCategoryId] = useState(null);
 
   const nameRef = useRef(null)
   const descriptionRef = useRef(null)
@@ -23,7 +25,7 @@ const NewProductForm = () => {
       setImageFile(null)
       return
     }
-    setImageFile(file) // wichtig fürs Backend (FormData)
+    setImageFile(file)
     const reader = new FileReader()
     reader.onloadend = () => setImagePreview(reader.result)
     reader.readAsDataURL(file)
@@ -35,6 +37,7 @@ const NewProductForm = () => {
     const fd = new FormData()
     fd.append('name', (nameRef.current && nameRef.current.value) || '')
     fd.append('description', (descriptionRef.current && descriptionRef.current.value) || '')
+    fd.append('category', (categoryId) || '')
     fd.append('price', (priceRef.current && priceRef.current.value) || '')
     if (imageFile) fd.append('image', imageFile) // Feldname = "image"
 
@@ -75,6 +78,9 @@ const NewProductForm = () => {
 
           <Label htmlFor="description">Produktbeschreibung</Label>
           <Textarea ref={descriptionRef} id="description" placeholder="Produktbeschreibung" className="h-32" />
+          
+          <Label htmlFor="category">Kategorie</Label>
+          <CategorySelect value={categoryId} onChange={setCategoryId} />
 
           <Label htmlFor="price">Preis/€</Label>
           <Input ref={priceRef} type="number" id="price" placeholder="Preis" step="0.01" min="0" />

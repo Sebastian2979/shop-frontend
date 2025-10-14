@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 import api from '../api/api';
 import ProductCard from './ProductCard';
 
-function ProductList() {
+function ProductList(props) {
 
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
+  const categorieId = props.categoryId
 
   useEffect(() => {
+
     api.get('/products')
       .then((response) => {
         // Wenn paginiert: response.data.data, sonst: response.data
@@ -20,12 +22,23 @@ function ProductList() {
       });
   }, []);
 
+  useEffect(() => {
+    if(categorieId){
+      api.get(`/products/category/${categorieId}`)
+      .then((response) => {
+        // Wenn paginiert: response.data.data, sonst: response.data
+        const data = response.data.data ?? response.data;
+        setProducts(data);
+      })
+    }
+  },[categorieId])
+
   if (error) {
     return <div>{error}</div>;
   }
 
   if (products.length === 0) {
-    return <div className="min-h-screen bg-gray-800 text-teal-300">Lade Produkte...</div>;
+    return <div className="min-h-screen bg-gray-800 text-teal-300">Keine Produkte vorhanden</div>;
   }
 
   return (

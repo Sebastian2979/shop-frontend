@@ -5,7 +5,6 @@ import logo from "../assets/pumo.svg";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Menu, ShoppingCart } from "lucide-react";
-import AdminDropDown from "./AdminDropDown";
 import { useSelector } from "react-redux";
 
 export const Navbar = () => {
