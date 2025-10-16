@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import logo from "../assets/pumo.svg";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Menu, ShoppingCart } from "lucide-react";
+import { Menu, ShoppingCart, LogIn, LogOut } from "lucide-react";
 import { useSelector } from "react-redux";
 
 export const Navbar = () => {
@@ -104,8 +104,9 @@ export const Navbar = () => {
               <Button
                 onClick={logout}
                 className="bg-amber-500 text-white hover:bg-amber-600"
+                title='Logout'
               >
-                Logout
+                <LogOut />
               </Button>
               <span className="font-medium">Hallo {user.name}</span>
             </>
@@ -113,8 +114,9 @@ export const Navbar = () => {
             <Link
               to="/login"
               className="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600"
+              title='Login'
             >
-              Login
+              <LogIn />
             </Link>
           )}
         </div>
