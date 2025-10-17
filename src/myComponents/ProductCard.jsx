@@ -8,6 +8,11 @@ const ProductCard = (props) => {
 
     const dispatch = useDispatch();
 
+    const formatPrice = (v) => {
+        const n = Number(v);
+        return Number.isFinite(n) ? n.toFixed(2) : '0.00';
+    };
+
     return (
         <div className="flex flex-col bg-zinc-200 p-4 text-center rounded-xl">
             <div className="flex w-full justify-between mb-4">
@@ -24,7 +29,7 @@ const ProductCard = (props) => {
                 {props.product.name}
             </div>
             <div className="flex justify-center items-center text-2xl font-bold mb-8">
-                {props.product.price.toFixed(2)} €
+                {formatPrice(props.product?.price)} €
             </div>
             <div className="flex justify-center items-center font-bold">
                 <Link to={`/products/${props.product.id}`} className="bg-orange-600 text-gray-100 px-12 py-2 rounded">
