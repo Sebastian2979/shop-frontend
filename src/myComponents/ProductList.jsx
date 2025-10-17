@@ -38,13 +38,13 @@ function ProductList(props) {
   }
 
   if (products.length === 0) {
-    return <div className="min-h-screen bg-gray-800 text-teal-300">Keine Produkte vorhanden</div>;
+    return <div className="min-h-screen bg-zinc-100 text-gray-800">Keine Produkte vorhanden</div>;
   }
 
   return (
     <div>
-      <h2 className='text-3xl mb-4 text-teal-300'>Produkte</h2>
-      <ul className='sm:grid sm:grid-cols-3 sm:gap-4 sm:max-w-6xl'>
+      <h2 className='text-3xl mb-4 text-gray-800'>Produkte</h2>
+      <ul className='sm:grid sm:grid-cols-4 sm:gap-4 sm:max-w-6xl'>
         {products.map((product) => (
           <li key={product.id} className="mb-2">
             <ProductCard product={product}/>

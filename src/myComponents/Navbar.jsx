@@ -8,7 +8,7 @@ import { Menu, ShoppingCart, LogIn, LogOut } from "lucide-react";
 import { useSelector } from "react-redux";
 
 export const Navbar = () => {
-  
+
   const { user, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScroll, setIsScroll] = useState(false);
@@ -38,7 +38,7 @@ export const Navbar = () => {
   }, [count]);
 
   const scrollHandler = () => {
-    setIsScroll(window.scrollY > 200);
+    setIsScroll(window.scrollY > 0);
   };
 
   useEffect(() => {
@@ -49,39 +49,21 @@ export const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 text-white ${isScroll ? "bg-black/70 backdrop-blur shadow-md transition-colors duration-300" : ""
+      className={`fixed top-0 left-0 right-0 z-50 text-white ${isScroll ? "bg-black/70 backdrop-blur shadow-md transition-colors duration-300" : "bg-black/50 backdrop-blur shadow-md transition-colors duration-300"
         }`}
     >
-      <div className="flex items-center justify-between max-w-7xl mx-auto p-4">
+      <div className="flex items-center justify-between max-w-6xl mx-auto p-4">
         {/* Logo & Links (links) */}
         <div className="flex items-center space-x-4 p-4">
           <Link to="/" aria-label="Startseite">
             <img src={logo} alt="Logo" className="w-8 h-8" />
           </Link>
-
           <div className="hidden md:flex items-center gap-4">
-            <Link to="/" className="font-medium hover:underline">
+            <Link to="/" className="font-medium hover:underline ">
               Home
             </Link>
-            {/* Cart Button (Desktop) */}
-            <Link
-              to="/cart"
-              className={`relative inline-flex items-center p-2 rounded-lg focus:outline-none focus:ring focus:ring-teal-400 transition
-                hover:bg-white/10 ${bump ? "animate-bounce" : ""}`}
-              aria-label={`Warenkorb (${count} Artikel)`}
-              title={`Warenkorb (${count} Artikel)`}
-            >
-              <ShoppingCart className="w-6 h-6" />
-              {/* Live-Region für Screenreader */}
-              <span className="sr-only" aria-live="polite">
-                {count} Artikel im Warenkorb
-              </span>
-
-              {count > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 grid place-items-center h-5 min-w-[1.25rem] px-1 rounded-full text-xs font-semibold bg-teal-500 text-white shadow ring-1 ring-black/10">
-                  {displayCount}
-                </span>
-              )}
+            <Link to="/" className="font-medium hover:underline ">
+              Kontakt
             </Link>
           </div>
         </div>
@@ -91,7 +73,7 @@ export const Navbar = () => {
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Navigation umschalten"
-            className="p-2 rounded hover:bg-white/10 focus:outline-none focus:ring focus:ring-teal-400"
+            className="p-2 rounded hover:bg-white/10 focus:outline-none focus:ring focus:ring-orange-600"
           >
             <Menu className="w-6 h-6" />
           </button>
@@ -99,6 +81,25 @@ export const Navbar = () => {
 
         {/* Auth Buttons (rechts, Desktop) */}
         <div className="hidden md:flex items-center space-x-4">
+          <Link
+            to="/cart"
+            className={`relative inline-flex items-center p-2 rounded-lg focus:outline-none focus:ring focus:ring-orange-600 transition
+                hover:bg-white/10 ${bump ? "animate-bounce" : ""}`}
+            aria-label={`Warenkorb (${count} Artikel)`}
+            title={`Warenkorb (${count} Artikel)`}
+          >
+            <ShoppingCart className="w-6 h-6" />
+            {/* Live-Region für Screenreader */}
+            <span className="sr-only" aria-live="polite">
+              {count} Artikel im Warenkorb
+            </span>
+
+            {count > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 grid place-items-center h-5 min-w-[1.25rem] px-1 rounded-full text-xs font-semibold bg-orange-400 text-white shadow ring-1 ring-black/10">
+                {displayCount}
+              </span>
+            )}
+          </Link>
           {user ? (
             <>
               <Button
@@ -113,7 +114,7 @@ export const Navbar = () => {
           ) : (
             <Link
               to="/login"
-              className="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600"
+              className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"
               title='Login'
             >
               <LogIn />
@@ -132,45 +133,52 @@ export const Navbar = () => {
           >
             Home
           </Link>
-
-          {/* Cart (Mobile) */}
           <Link
-            to="/cart"
-            className="relative inline-flex items-center gap-2 px-2 py-2 rounded hover:bg-white/10"
+            to="/"
+            className="block font-medium"
             onClick={() => setMenuOpen(false)}
-            aria-label={`Warenkorb (${count} Artikel)`}
-            title={`Warenkorb (${count} Artikel)`}
           >
-            <ShoppingCart className="w-6 h-6" />
-            <span>Warenkorb</span>
-            {count > 0 && (
-              <span className="ml-auto inline-grid place-items-center h-5 min-w-[1.25rem] px-1 rounded-full text-xs font-semibold bg-teal-500 text-white shadow ring-1 ring-black/10">
-                {displayCount}
-              </span>
-            )}
+            Kontakt
           </Link>
 
-          {user ? (
-            <>
-              <Button
-                onClick={() => {
-                  logout();
-                  setMenuOpen(false);
-                }}
-                className="w-full bg-red-500 text-white hover:bg-red-600"
-              >
-                Logout
-              </Button>
-            </>
-          ) : (
+          <div className="flex justify-between">
+            {/* Cart (Mobile) */}
             <Link
-              to="/login"
-              className="block bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+              to="/cart"
+              className="relative inline-flex items-center gap-2  rounded hover:bg-white/10"
               onClick={() => setMenuOpen(false)}
-            >
-              Login
+              aria-label={`Warenkorb (${count} Artikel)`}
+              title={`Warenkorb (${count} Artikel)`}
+            ><span>Warenkorb</span>
+              <ShoppingCart className="w-6 h-6" />
+              {count > 0 && (
+                <span className="ml-auto inline-grid place-items-center h-5 min-w-[1.25rem] px-1 rounded-full text-xs font-semibold bg-orange-500 text-white shadow ring-1 ring-black/10">
+                  {displayCount}
+                </span>
+              )}
             </Link>
-          )}
+            {user ? (
+              <>
+                <Button
+                  onClick={() => {
+                    logout();
+                    setMenuOpen(false);
+                  }}
+                  className="block bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 w-fit"
+                >
+                  <LogOut />
+                </Button>
+              </>
+            ) : (
+              <Link
+                to="/login"
+                className="block bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 w-fit"
+                onClick={() => setMenuOpen(false)}
+              >
+                <LogIn />
+              </Link>
+            )}
+          </div>
         </div>
       )}
     </nav>
