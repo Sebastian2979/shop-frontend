@@ -21,7 +21,7 @@ const ProductCard = (props) => {
                 {/* <button className="text-gray-800 hover:text-gray-900" onClick={() => dispatch(removeItem(props.product.id))}><SquareMinus size={40}/></button> */}
             </div>
             <div className="flex justify-center items-center mb-4">
-                <Link to={`/products/${props.product.id}`} className="">
+                <Link to={`/products/${props.product.id}`}>
                     <img src={`${import.meta.env.VITE_API_BASE_URL.replace(/\/api\/?$/, '')}/storage/${props.product.image}`} alt={props.product.name} className="w-48" />
                 </Link>
             </div>
