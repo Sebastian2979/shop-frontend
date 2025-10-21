@@ -20,7 +20,7 @@ const Home = () => {
         </div>
       </section>
       <div className='flex flex-col justify-center bg-zinc-100 p-8'>
-        <div className="sm:w-6xl sm:mx-auto">
+        <div className="sm:w-6xl sm:mx-auto md:w-7xl md:mx-auto">
           <CategoryTabs value={categorieId} onChange={setCategorieId} />
           <ProductList categoryId={categorieId} />
         </div>
