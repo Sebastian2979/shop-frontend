@@ -38,7 +38,7 @@ function App() {
           path="admin"
           element={
             <ProtectedRoute
-              redirectPath="/"
+              redirectPath="/login"
               isAllowed={!!user && user.role === "admin"}
               isLoading={loading}
             >

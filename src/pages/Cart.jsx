@@ -1,13 +1,16 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { clearCart, removeItem, addItem } from '../cartSlice';
-import { SquareMinus, SquarePlus } from 'lucide-react';
+import { SquareMinus, SquarePlus, Trash2 } from 'lucide-react';
 import api from '@/api/api';
+import { useAuth } from '@/context/AuthContext';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
 
   const cartItems = useSelector((state) => state.cart.items)
   const dispatch = useDispatch();
+  const { user } = useAuth()
 
   const checkoutHandler = async (e) => {
     e.preventDefault();
@@ -38,32 +41,32 @@ const Cart = () => {
 
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-800 text-teal-300">
+    <div className="flex flex-col items-center justify-center h-screen bg-zinc-100 text-gray-800">
       <h1 className="text-3xl font-bold underline mb-4">Warenkorb</h1>
 
       {cartItems.length === 0 ? (
         <p>Dein Warenkorb ist leer</p>
       ) : (
         <>
-          <table>
+          <table className="table-auto md:table-fixed">
             <thead>
               <tr>
-                <th className="px-4 py-2">Produkt</th>
-                <th className="px-4 py-2">Preis</th>
-                <th className="px-4 py-2">Menge</th>
-                <th className="px-4 py-2">Total</th>
-                <th className="px-4 py-2"></th>
+                <th className="p-2">Produkt</th>
+                <th className="p-2">Preis</th>
+                <th className="p-2">Menge</th>
+                <th className="p-2">Total</th>
+                <th className="p-2"></th>
               </tr>
             </thead>
             {cartItems.map((item) => (
               <tbody key={item.id}>
                 <tr>
                   <td className="border px-4 py-2">{item.name}</td>
-                  <td className="border px-4 py-2">{item.price}</td>
+                  <td className="border px-4 py-2">{(item.price).toFixed(2)}</td>
                   <td className="border px-4 py-2">{item.quantity}</td>
-                  <td className="border px-4 py-2">{item.quantity * item.price}</td>
+                  <td className="border px-4 py-2">{(item.quantity * item.price).toFixed(2)}</td>
                   <td className="border px-4 py-2">
-                    <div className='flex'>
+                    <div className='flex gap-1'>
                       <button onClick={() => dispatch(addItem(item))}><SquarePlus /></button>
                       <button onClick={() => dispatch(removeItem(item.id))}><SquareMinus /></button>
                     </div>
@@ -72,10 +75,13 @@ const Cart = () => {
               </tbody>
             ))}
           </table>
-          <button className="mt-4 px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700 cursor-pointer" onClick={clearCartHandler}>Warenkorb komplett leeren</button>
-          <form onSubmit={checkoutHandler}>
-            <button className="mt-4 px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700 cursor-pointer">zur Kasse</button>
-          </form>
+          <div className="flex gap-2">
+            <button className="mt-4 px-4 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 cursor-pointer" onClick={clearCartHandler}><Trash2 /></button>
+            {user ?
+            <form onSubmit={checkoutHandler}>
+              <button className="mt-4 px-4 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 cursor-pointer">zur Kasse</button>
+            </form> : <Link to="/login" className="mt-4 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 cursor-pointer">Login</Link>}
+          </div>
         </>
       )}
     </div>
