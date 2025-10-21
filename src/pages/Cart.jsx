@@ -61,11 +61,11 @@ const Cart = () => {
             {cartItems.map((item) => (
               <tbody key={item.id}>
                 <tr>
-                  <td className="border px-4 py-2">{item.name}</td>
-                  <td className="border px-4 py-2">{item.price}</td>
-                  <td className="border px-4 py-2">{item.quantity}</td>
-                  <td className="border px-4 py-2">{item.quantity * item.price}</td>
-                  <td className="border px-4 py-2">
+                  <td className="px-4 py-2">{item.name}</td>
+                  <td className="px-4 py-2">{item.price}</td>
+                  <td className="px-4 py-2">{item.quantity}</td>
+                  <td className="px-4 py-2">{item.quantity * item.price}</td>
+                  <td className="px-4 py-2">
                     <div className='flex gap-1'>
                       <button onClick={() => dispatch(addItem(item))}><SquarePlus /></button>
                       <button onClick={() => dispatch(removeItem(item.id))}><SquareMinus /></button>
