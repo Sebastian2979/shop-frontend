@@ -62,9 +62,9 @@ const Cart = () => {
               <tbody key={item.id}>
                 <tr>
                   <td className="border px-4 py-2">{item.name}</td>
-                  <td className="border px-4 py-2">{(item?.price).toFixed(2)}</td>
+                  <td className="border px-4 py-2">{item.price}</td>
                   <td className="border px-4 py-2">{item.quantity}</td>
-                  <td className="border px-4 py-2">{(item?.quantity * item.price).toFixed(2)}</td>
+                  <td className="border px-4 py-2">{item.quantity * item.price}</td>
                   <td className="border px-4 py-2">
                     <div className='flex gap-1'>
                       <button onClick={() => dispatch(addItem(item))}><SquarePlus /></button>
