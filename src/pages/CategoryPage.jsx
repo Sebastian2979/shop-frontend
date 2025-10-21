@@ -27,9 +27,9 @@ const CategoryPage = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-800 text-teal-300 justify-center items-center p-4">
+    <div className="flex min-h-screen bg-zinc-100 text-gray-800 justify-center items-center p-4">
       <div className="w-2xl mx-auto space-y-2">
-        <Link to="/admin" className="hover:underline text-xs">zurück zum Admin Dashboard</Link>
+        <Link to="/admin" className="hover:underline text-xs">zurück zum Dashboard!</Link>
         <p className="text-3xl">Kategorien</p>
         <form onSubmit={createCategoryHandler} className="space-y-2">
           <div>
@@ -37,7 +37,7 @@ const CategoryPage = () => {
               ref={categoryInputRef}
               type="text"
               placeholder="Neue Kategorie"
-              className="w-full p-2 border rounded text-teal-300"
+              className="w-full p-2 border rounded text-gray-800"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               required
@@ -46,7 +46,7 @@ const CategoryPage = () => {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full bg-teal-500 text-white py-2 rounded hover:bg-teal-600 disabled:opacity-60"
+            className="w-full bg-orange-600 text-white py-2 rounded hover:bg-orange-700 disabled:opacity-60"
           >
             {submitting ? "Sende…" : "Absenden"}
           </button>

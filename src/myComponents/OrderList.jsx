@@ -35,7 +35,7 @@ export default function OrderList() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-800 text-teal-300">
+      <div className="flex justify-center items-center min-h-screen bg-zinc-100 text-gray-800">
         Lade Bestellungen...
       </div>
     );
@@ -43,19 +43,19 @@ export default function OrderList() {
   if (error) return <div className="text-red-400">{error}</div>;
   if (orders.length === 0) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-800 text-teal-300">
+      <div className="flex justify-center items-center min-h-screen bg-zinc-100 text-gray-800">
         Keine Bestellungen vorhanden.
       </div>
     );
   }
 
   return (
-    <div className="max-w-6xl mx-auto text-teal-300">
+    <div className="max-w-6xl mx-auto text-gray-800">
       <h2 className="text-3xl mb-4">Bestellungen</h2>
 
       <div className="overflow-x-auto rounded-lg shadow">
-        <table className="min-w-full bg-gray-800">
-          <thead className="bg-gray-700 text-left">
+        <table className="min-w-full bg-zinc-100">
+          <thead className="bg-zinc-300 text-left">
             <tr>
               <th className="px-4 py-2">#</th>
               <th className="px-4 py-2">Datum</th>
@@ -70,7 +70,7 @@ export default function OrderList() {
           <tbody>
             {orders.map((order) => (
               <Fragment key={order.id}>
-                <tr className="border-t border-gray-700">
+                <tr className="border-t border-zinc-700">
                   <td className="px-4 py-2">{order.id}</td>
                   <td className="px-4 py-2">{formatDateTime(order.created_at)}</td>
                   <td className="px-4 py-2">{order.email ?? "—"}</td>
@@ -85,7 +85,7 @@ export default function OrderList() {
                     <button
                       onClick={() => toggle(order.id)}
                       aria-expanded={!!open[order.id]}
-                      className="text-sm bg-teal-600 hover:bg-teal-500 text-white px-3 py-1 rounded"
+                      className="text-sm bg-orange-600 hover:bg-orange-700 text-white px-3 py-1 rounded"
                     >
                       {open[order.id] ? "Details ausblenden" : "Details"}
                     </button>
@@ -93,11 +93,11 @@ export default function OrderList() {
                 </tr>
 
                 {open[order.id] && (
-                  <tr className="bg-gray-900">
+                  <tr className="bg-zinc-300">
                     <td colSpan={7} className="px-6 py-4">
                       <div className="overflow-x-auto">
                         <table className="min-w-full text-sm">
-                          <thead className="text-teal-400">
+                          <thead className="text-orange-500">
                             <tr>
                               <th className="px-3 py-2 text-left">Produkt</th>
                               <th className="px-3 py-2 text-left">Menge</th>

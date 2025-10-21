@@ -59,16 +59,16 @@ export default function CategoryList({ refreshKey }) {
   if (error) return <div className="text-red-400">{error}</div>;
   if (!Array.isArray(categories) || categories.length === 0) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-800 text-teal-300">
+      <div className="flex justify-center items-center min-h-screen bg-zinc-100 text-gray-800">
         Keine Kategorien vorhanden.
       </div>
     );
   }
 
   return (
-    <div className="max-w-6xl mx-auto text-teal-300 space-y-2">
+    <div className="max-w-6xl mx-auto text-gray-800 space-y-2">
       {categories.map((c) => (
-        <div key={c.id} className="flex justify-between border border-teal-700/40 rounded-xl p-3">
+        <div key={c.id} className="flex justify-between border border-orange-500 rounded-xl p-3">
           <p className="font-medium text-sm">{c.name}</p>
           <button onClick={() => deleteCategoryHandler(c.id)} className="text-red-600 cursor-pointer" title="Löschen"><Trash2 /></button>
         </div>
