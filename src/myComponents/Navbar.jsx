@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/pumo.svg";
+import logoBlack from "../assets/pumo-black.svg";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Menu, ShoppingCart, LogIn, LogOut } from "lucide-react";
@@ -49,14 +50,14 @@ export const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 text-white ${isScroll ? "bg-black/70 backdrop-blur shadow-md transition-colors duration-300" : "bg-black/50 backdrop-blur shadow-md transition-colors duration-300"
+      className={`fixed top-0 left-0 right-0 z-50 text-orange-600 ${isScroll ? "bg-black/70 backdrop-blur shadow-md transition-colors duration-300 text-white" : ""
         }`}
     >
       <div className="flex items-center justify-between max-w-6xl mx-auto p-4">
         {/* Logo & Links (links) */}
         <div className="flex items-center space-x-4 p-4">
           <Link to="/" aria-label="Startseite">
-            <img src={logo} alt="Logo" className="w-8 h-8" />
+            {isScroll ? <img src={logo} alt="Logo" className="w-8 h-8" /> : <img src={logoBlack} alt="Logo" className="w-8 h-8 opacity-40" />}
           </Link>
           <div className="hidden md:flex items-center gap-4">
             <Link to="/" className="font-medium hover:underline ">
@@ -73,7 +74,7 @@ export const Navbar = () => {
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Navigation umschalten"
-            className="p-2 rounded hover:bg-white/10 focus:outline-none focus:ring focus:ring-orange-600"
+            className="p-2 rounded hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-orange-600"
           >
             <Menu className="w-6 h-6" />
           </button>
@@ -125,7 +126,7 @@ export const Navbar = () => {
 
       {/* Mobile Dropdown Menu */}
       {menuOpen && (
-        <div className="md:hidden px-4 pb-4 space-y-3">
+        <div className="md:hidden p-4 space-y-3">
           <Link
             to="/"
             className="block font-medium"
@@ -145,11 +146,11 @@ export const Navbar = () => {
             {/* Cart (Mobile) */}
             <Link
               to="/cart"
-              className="relative inline-flex items-center gap-2  rounded hover:bg-white/10"
+              className="flex gap-1"
               onClick={() => setMenuOpen(false)}
               aria-label={`Warenkorb (${count} Artikel)`}
               title={`Warenkorb (${count} Artikel)`}
-            ><span>Warenkorb</span>
+            ><span className="font-medium">Warenkorb</span>
               <ShoppingCart className="w-6 h-6" />
               {count > 0 && (
                 <span className="ml-auto inline-grid place-items-center h-5 min-w-[1.25rem] px-1 rounded-full text-xs font-semibold bg-orange-500 text-white shadow ring-1 ring-black/10">
