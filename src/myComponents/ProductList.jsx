@@ -9,10 +9,8 @@ function ProductList(props) {
   const categorieId = props.categoryId
 
   useEffect(() => {
-
     api.get('/products')
       .then((response) => {
-        // Wenn paginiert: response.data.data, sonst: response.data
         const data = response.data.data ?? response.data;
         setProducts(data);
       })
@@ -23,15 +21,20 @@ function ProductList(props) {
   }, []);
 
   useEffect(() => {
-    if(categorieId){
+    if (categorieId) {
       api.get(`/products/category/${categorieId}`)
-      .then((response) => {
-        // Wenn paginiert: response.data.data, sonst: response.data
-        const data = response.data.data ?? response.data;
-        setProducts(data);
-      })
+        .then((response) => {
+          const data = response.data.data ?? response.data;
+          setProducts(data);
+        })
+    } else {
+      api.get('/products')
+        .then((response) => {
+          const data = response.data.data ?? response.data;
+          setProducts(data);
+        })
     }
-  },[categorieId])
+  }, [categorieId])
 
   if (error) {
     return <div>{error}</div>;
@@ -47,7 +50,7 @@ function ProductList(props) {
       <ul className='sm:grid sm:grid-cols-4 sm:gap-4 sm:max-w-6xl'>
         {products.map((product) => (
           <li key={product.id} className="mb-2">
-            <ProductCard product={product}/>
+            <ProductCard product={product} />
           </li>
         ))}
       </ul>
