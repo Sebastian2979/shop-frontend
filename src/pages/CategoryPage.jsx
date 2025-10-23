@@ -2,6 +2,7 @@ import { React, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import api from '@/api/api';
 import CategoryList from '@/myComponents/CategoryList';
+import { MoveLeft } from 'lucide-react';
 
 const CategoryPage = () => {
 
@@ -29,7 +30,7 @@ const CategoryPage = () => {
   return (
     <div className="flex min-h-screen bg-zinc-100 text-gray-800 justify-center items-center p-4">
       <div className="w-2xl mx-auto space-y-2">
-        <Link to="/admin" className="hover:underline text-xs">zurück zum Dashboard!</Link>
+        <Link to="/admin" className="flex gap-2 text-xs hover:underline mb-2"><MoveLeft size={16} /><p>zurück zum Dashboard</p></Link>
         <p className="text-3xl">Kategorien</p>
         <form onSubmit={createCategoryHandler} className="space-y-2">
           <div>

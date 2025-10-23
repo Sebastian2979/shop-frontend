@@ -1,5 +1,7 @@
 import { useEffect, useState, Fragment } from "react";
 import api from "../api/api";
+import { Link } from "react-router-dom";
+import { MoveLeft } from 'lucide-react';
 
 const formatMoney = (cents) =>
   new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" })
@@ -51,6 +53,7 @@ export default function OrderList() {
 
   return (
     <div className="max-w-6xl mx-auto text-gray-800">
+      <Link to="/admin" className="flex gap-2 text-xs hover:underline mb-2"><MoveLeft size={16} /><p>zurück zum Dashboard</p></Link>
       <h2 className="text-3xl mb-4">Bestellungen</h2>
 
       <div className="overflow-x-auto rounded-lg shadow">

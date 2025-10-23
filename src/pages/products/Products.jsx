@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import api from '@/api/api'
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
+import { MoveLeft } from 'lucide-react';
 
 const Products = () => {
 
@@ -39,6 +40,7 @@ const Products = () => {
     return (
         <div className="bg-zinc-100 pt-32 px-4">
             <div className="sm:w-2xl mx-auto mb-4">
+                <Link to="/admin" className="flex gap-2 text-xs hover:underline mb-2"><MoveLeft size={16} /><p>zurück zum Dashboard</p></Link>
                 <div className="flex justify-between items-center mb-4">
                     <h1 className="text-2xl font-bold text-gray-800">Produktverwaltung</h1>
                 </div>

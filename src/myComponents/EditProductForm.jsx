@@ -5,6 +5,9 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import React, { useState, useRef, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import CategorySelect from './CategorySelect'
+import { MoveLeft } from 'lucide-react';
+import { Link } from 'react-router-dom'
 
 const hostFromEnv = () =>
   import.meta.env.VITE_API_BASE_URL.replace(/\/api\/?$/, '')
@@ -23,33 +26,59 @@ const EditProductForm = () => {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const [image, setImage] = useState(null)     
+  const [image, setImage] = useState(null)
   const [newImage, setNewImage] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [categoryId, setCategoryId] = useState(null);
 
   const nameRef = useRef(null)
   const descriptionRef = useRef(null)
   const priceRef = useRef(null)
   const formRef = useRef(null)
 
+
   useEffect(() => {
-    let cancelled = false
-    api.get(`/products/${id}`)
-      .then((res) => {
-        if (cancelled) return
+    (async () => {
+      try {
+        const res = await api.get(`/products/${id}`);
+        console.log(res.data);
         const product = res.data.data || res.data
-        if (nameRef.current) nameRef.current.value = product.name || ''
-        if (descriptionRef.current) descriptionRef.current.value = product.description || ''
-        if (priceRef.current) priceRef.current.value = product.price ?? ''
         // bestehendes Bild nur als URL anzeigen
         const url = product.image_url || buildImageUrl(product.image_path || product.image)
         setImage(url || null)
-      })
-      .catch(() => setError('Produkt konnte nicht geladen werden.'))
-      .finally(() => setLoading(false))
-    return () => { cancelled = true }
-  }, [id])
+        if (nameRef.current) nameRef.current.value = product.name || ''
+        if (descriptionRef.current) descriptionRef.current.value = product.description || ''
+        setCategoryId(product.category.id)
+        if (priceRef.current) priceRef.current.value = product.price ?? ''
+      } catch (e) {
+        console.error("Fehler beim Abrufen des Produktes:", e);
+        setError("Fehler beim Laden des Produktes.");
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [id]);
+
+  // useEffect(() => {
+  //   let cancelled = false
+  //   api.get(`/products/${id}`)
+  //     .then((res) => {
+  //       if (cancelled) return
+  //       const product = res.data.data || res.data
+  //       setCategoryId(product.category.id)
+  //       console.log(categoryId)
+  //       if (nameRef.current) nameRef.current.value = product.name || ''
+  //       if (descriptionRef.current) descriptionRef.current.value = product.description || ''
+  //       if (priceRef.current) priceRef.current.value = product.price ?? ''
+  //       // bestehendes Bild nur als URL anzeigen
+  //       const url = product.image_url || buildImageUrl(product.image_path || product.image)
+  //       setImage(url || null)
+  //     })
+  //     .catch(() => setError('Produkt konnte nicht geladen werden.'))
+  //     .finally(() => setLoading(false))
+  //   return () => { cancelled = true }
+  // }, [id])
 
   // ObjectURL sauber aufräumen
   useEffect(() => {
@@ -75,10 +104,12 @@ const EditProductForm = () => {
 
     const name = nameRef.current?.value?.trim();
     const desc = descriptionRef.current?.value?.trim();
+    const catId = categoryId;
     const priceVal = priceRef.current?.value;
 
     if (name) fd.append("name", name);
     if (desc) fd.append("description", desc);
+    if (catId) fd.append("category_id", catId);
     if (priceVal !== "" && priceVal != null) fd.append("price", String(priceVal));
     if (newImage) fd.append("image", newImage);
 
@@ -98,17 +129,18 @@ const EditProductForm = () => {
   if (error) return <p className="text-red-600">{error}</p>
 
   return (
-    <div className=" flex justify-center items-center min-h-screen bg-gray-800 text-teal-300">
-      <div className="flex flex-col gap-4 p-6 m-4 sm:w-[800px] mx-auto bg-gray-800 justify-center mt-8 rounded-lg">
-        <h2 className="text-3xl">Produkt bearbeiten</h2>
+    <div className="flex bg-zinc-100 text-gray-800">
+      <div className="flex flex-col w-2xl mx-auto my-35 p-4 sm:p-0">
+        <Link to="/admin" className="flex gap-2 text-xs hover:underline mb-2"><MoveLeft size={16} /><p>zurück zum Dashboard</p></Link>
+        <h2 className="text-3xl mb-8">Produkt bearbeiten</h2>
 
         <form
           ref={formRef}
           onSubmit={onSubmitHandler}
-          className="flex flex-col gap-4"
+          className="flex flex-col gap-4 justify-center items-center"
           encType="multipart/form-data"
         >
-          {image && <img src={image} alt="Produktbild" className="h-auto max-h-60 object-cover rounded" />}
+          {image && <img src={image} alt="Produktbild" className="w-80 h-80 object-cover rounded" />}
 
           <Label htmlFor="image">Neues Produktbild (optional)</Label>
           <Input id="image" type="file" accept="image/*" onChange={handleNewImage} />
@@ -119,10 +151,13 @@ const EditProductForm = () => {
           <Label htmlFor="description">Produktbeschreibung</Label>
           <Textarea ref={descriptionRef} id="description" placeholder="Produktbeschreibung" className="h-32" />
 
+          <Label htmlFor="category">Kategorie</Label>
+          <CategorySelect value={categoryId} onChange={setCategoryId} />
+
           <Label htmlFor="price">Preis/€</Label>
           <Input ref={priceRef} type="number" id="price" placeholder="Preis" step="0.01" min="0" />
 
-          <Button className="bg-teal-500 text-white hover:bg-teal-600 cursor-pointer mt-2">Produkt speichern</Button>
+          <Button className="w-full bg-orange-500 text-white hover:bg-orange-600 cursor-pointer mt-2">Produkt speichern</Button>
         </form>
       </div>
     </div>

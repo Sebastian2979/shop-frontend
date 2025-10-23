@@ -63,25 +63,16 @@ export const Navbar = () => {
             <Link to="/" className="font-medium hover:underline ">
               Home
             </Link>
-            <Link to="/" className="font-medium hover:underline ">
-              Kontakt
+            <Link to="https://app.pumo.digital/@sebastian/mein-mvp-shopsystem" className="font-medium hover:underline" target="blank">
+              Blog
             </Link>
           </div>
         </div>
 
-        {/* Mobile Menu Button (rechts) */}
-        <div className="md:hidden">
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Navigation umschalten"
-            className="p-2 rounded hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-orange-600"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
-        </div>
+        
 
-        {/* Auth Buttons (rechts, Desktop) */}
-        <div className="hidden md:flex items-center space-x-4">
+        {/* Mobile Menu Button (rechts) */}
+        <div className="flex gap-3 md:hidden">
           <Link
             to="/cart"
             className={`relative inline-flex items-center p-2 rounded-lg focus:outline-none focus:ring focus:ring-orange-600 transition
@@ -101,24 +92,55 @@ export const Navbar = () => {
               </span>
             )}
           </Link>
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Navigation umschalten"
+            className="p-2 rounded hover:bg-white/10 focus:outline-none focus:ring focus:ring-orange-600"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+        </div>
+
+        {/* Auth Buttons (rechts, Desktop) */}
+        <div className="hidden md:flex items-center space-x-4">
+          <Link
+            to="/cart"
+            className={`relative inline-flex items-center p-2 rounded-lg focus:outline-none focus:ring focus:ring-orange-600 transition
+                hover:bg-white/10 ${bump ? "animate-bounce" : ""}`}
+            aria-label={`Warenkorb (${count} Artikel)`}
+            title={`Warenkorb (${count} Artikel)`}
+          >
+            <ShoppingCart className="w-8 h-8" />
+            {/* Live-Region für Screenreader */}
+            <span className="sr-only" aria-live="polite">
+              {count} Artikel im Warenkorb
+            </span>
+
+            {count > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 grid place-items-center h-5 min-w-[1.25rem] px-1 rounded-full text-xs font-semibold bg-orange-400 text-white shadow ring-1 ring-black/10">
+                {displayCount}
+              </span>
+            )}
+          </Link>
           {user ? (
             <>
               <Button
                 onClick={logout}
-                className="bg-amber-500 text-white hover:bg-amber-600"
+                className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700"
                 title='Logout'
               >
-                <LogOut />
+                <div>Logout</div><LogOut size={24}/>
               </Button>
-              <span className="font-medium">Hallo {user.name}</span>
+              {/* Hier soll ein Userbereich entstehen mit dropdown */}
+              <Button size="default" variant="outline" className="cursor-pointer" onClick={() => alert('hier wird ein Userbereich entstehen')}>{user.name}</Button>
             </>
           ) : (
             <Link
               to="/login"
-              className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"
+              className="flex bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700"
               title='Login'
             >
-              <LogIn />
+              <LogIn size={24}/>
             </Link>
           )}
         </div>
@@ -135,29 +157,14 @@ export const Navbar = () => {
             Home
           </Link>
           <Link
-            to="/"
+            to="https://app.pumo.digital/@sebastian/mein-mvp-shopsystem"
             className="block font-medium"
             onClick={() => setMenuOpen(false)}
           >
-            Kontakt
+            Blog
           </Link>
 
-          <div className="flex justify-between">
-            {/* Cart (Mobile) */}
-            <Link
-              to="/cart"
-              className="flex gap-1"
-              onClick={() => setMenuOpen(false)}
-              aria-label={`Warenkorb (${count} Artikel)`}
-              title={`Warenkorb (${count} Artikel)`}
-            ><span className="font-medium">Warenkorb</span>
-              <ShoppingCart className="w-6 h-6" />
-              {count > 0 && (
-                <span className="ml-auto inline-grid place-items-center h-5 min-w-[1.25rem] px-1 rounded-full text-xs font-semibold bg-orange-500 text-white shadow ring-1 ring-black/10">
-                  {displayCount}
-                </span>
-              )}
-            </Link>
+          <div>
             {user ? (
               <>
                 <Button
@@ -165,18 +172,18 @@ export const Navbar = () => {
                     logout();
                     setMenuOpen(false);
                   }}
-                  className="block bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 w-fit"
+                  className="flex bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 w-full"
                 >
-                  <LogOut />
+                  <div>Logout</div><LogOut />
                 </Button>
               </>
             ) : (
               <Link
                 to="/login"
-                className="block bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 w-fit"
+                className="flex justify-center bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 w-full"
                 onClick={() => setMenuOpen(false)}
               >
-                <LogIn />
+                <div>Login</div>&nbsp;<LogIn />
               </Link>
             )}
           </div>
