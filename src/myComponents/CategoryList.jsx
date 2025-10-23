@@ -51,7 +51,7 @@ export default function CategoryList({ refreshKey }) {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-800 text-teal-300">
+      <div className="flex justify-center items-center min-h-screen bg-zinc-100 text-gray-800">
         Lade Kategorien...
       </div>
     );
